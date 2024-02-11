@@ -1,0 +1,17 @@
+$TTL 10s
+@ IN SOA lkslab-1.com. lkslab-1.com. 2018062405 3600 1800 1209600 86400
+
+; @ = lkslab-1.com.
+
+@   IN NS ns1.lkslab-1.com.
+@   IN A  172.31.176.1
+ns1 IN A  172.31.176.1
+web IN A  172.31.176.1
+foo IN A  172.31.176.1
+bar IN A  172.31.176.1
+
+
+;@   IN NS ns1.lkslab-1.com.
+;@   IN A  12.12.12.3
+;ns1 IN A  12.12.12.2
+;web IN A  12.12.12.3

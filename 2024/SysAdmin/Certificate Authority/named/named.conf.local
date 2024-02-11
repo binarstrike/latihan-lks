@@ -1,0 +1,4 @@
+zone "lkslab-1.com" {
+  type master;
+  file "/etc/bind/lkslab.com.zone";
+};

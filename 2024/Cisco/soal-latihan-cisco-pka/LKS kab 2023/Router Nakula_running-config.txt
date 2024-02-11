@@ -1,0 +1,103 @@
+!
+version 12.2
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Router-Nakula
+!
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/0
+ ip address 192.169.100.1 255.255.255.240
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/0.10
+ encapsulation dot1Q 10
+ ip address 192.169.100.17 255.255.255.240
+!
+interface FastEthernet0/0.20
+ encapsulation dot1Q 20
+ ip address 192.169.100.33 255.255.255.240
+!
+interface FastEthernet0/0.30
+ encapsulation dot1Q 30
+ ip address 192.169.100.49 255.255.255.240
+!
+interface FastEthernet1/0
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial2/0
+ ip address 10.10.10.1 255.255.255.252
+!
+interface Serial3/0
+ ip address 11.11.11.1 255.255.255.252
+!
+interface FastEthernet4/0
+ no ip address
+ shutdown
+!
+interface FastEthernet5/0
+ no ip address
+ shutdown
+!
+router ospf 1
+ log-adjacency-changes
+ network 192.169.100.0 0.0.0.15 area 0
+ network 192.169.100.16 0.0.0.15 area 0
+ network 192.169.100.32 0.0.0.15 area 0
+ network 192.169.100.48 0.0.0.15 area 0
+ network 10.10.10.0 0.0.0.3 area 0
+ network 11.11.11.0 0.0.0.3 area 0
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
+

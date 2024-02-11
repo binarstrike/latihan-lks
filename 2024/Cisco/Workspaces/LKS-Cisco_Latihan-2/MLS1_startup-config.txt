@@ -1,0 +1,70 @@
+!
+version 12.2(37)SE1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname MLS1
+!
+!
+vlan 100
+ name GURU
+vlan 110
+ name SISWA
+!
+!
+ip dhcp pool POOL_VLAN_GURU
+ network 167.23.1.0 255.255.255.192
+ default-router 167.23.1.1
+ dns-server 192.22.1.14
+ip dhcp pool POOL_VLAN_SISWA
+ network 167.23.2.0 255.255.255.192
+ default-router 167.23.2.1
+ dns-server 192.22.1.14
+!
+ip dhcp excluded-address 167.23.1.1 167.23.1.15
+ip dhcp excluded-address 167.23.2.1 167.23.2.15
+!
+ip routing
+!
+!
+spanning-tree mode pvst
+!
+interface GigabitEthernet0/1
+ no switchport
+ ip address 172.43.1.22 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan100
+ mac-address 0050.0f58.7d01
+ ip address 167.23.1.1 255.255.255.192
+!
+interface Vlan110
+ mac-address 0050.0f58.7d02
+ ip address 167.23.2.1 255.255.255.192
+!
+router rip
+ version 2
+ network 167.23.0.0
+ network 172.43.0.0
+!
+ip classless
+!
+ip flow-export version 9
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+end
+
