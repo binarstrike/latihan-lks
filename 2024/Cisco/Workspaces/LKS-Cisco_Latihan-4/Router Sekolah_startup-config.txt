@@ -1,0 +1,111 @@
+!
+version 12.2
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Router
+!
+!
+!
+!
+ip dhcp excluded-address 192.168.1.1
+ip dhcp excluded-address 43.120.64.11
+!
+ip dhcp pool POOL_DHCP_PCGURU
+ network 192.168.1.0 255.255.255.192
+ default-router 192.168.1.1
+ dns-server 8.8.8.8
+ip dhcp pool POOL_DHCP_WIFI
+ network 43.120.64.0 255.255.254.0
+ default-router 43.120.64.11
+ dns-server 8.8.8.8
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ ip address 132.100.100.13 255.255.255.252
+ ip nat inside
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet1/0
+ ip address 32.145.130.100 255.255.128.0
+ ip nat outside
+ duplex auto
+ speed auto
+!
+interface FastEthernet8/0
+ no ip address
+ duplex auto
+ speed auto
+!
+interface FastEthernet8/0.1
+ encapsulation dot1Q 103
+ ip address 192.168.1.1 255.255.255.192
+ ip access-group 2 out
+ ip nat inside
+!
+interface FastEthernet8/0.2
+ encapsulation dot1Q 104
+ ip address 43.120.64.11 255.255.254.0
+ ip access-group ACL_BLOCK_WEB in
+ ip nat inside
+!
+ip nat inside source list 1 interface GigabitEthernet1/0 overload
+ip classless
+ip route 172.32.1.128 255.255.255.128 132.100.100.14 
+ip route 172.32.1.0 255.255.255.128 132.100.100.14 
+ip route 0.0.0.0 0.0.0.0 32.145.254.1 
+!
+ip flow-export version 9
+!
+!
+ip access-list extended ACL_BLOCK_WEB
+ deny tcp 43.120.64.0 0.0.1.255 host 112.23.1.30 eq www
+ permit ip any any
+access-list 1 permit 192.168.1.0 0.0.0.63
+access-list 1 permit 172.32.1.0 0.0.0.127
+access-list 1 permit 172.32.1.128 0.0.0.127
+access-list 1 permit 43.120.64.0 0.0.1.255
+access-list 2 deny 172.32.1.0 0.0.0.127
+access-list 2 deny 172.32.1.128 0.0.0.127
+access-list 2 deny 43.120.64.0 0.0.1.255
+access-list 2 permit any
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
+

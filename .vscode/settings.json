@@ -1,0 +1,41 @@
+{
+    "editor.fontFamily": "FiraCode Nerd Font SemiBold",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 13,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "[markdown]": {
+        "editor.unicodeHighlight.ambiguousCharacters": false,
+        "editor.unicodeHighlight.invisibleCharacters": false,
+        "diffEditor.ignoreTrimWhitespace": false,
+        "editor.wordWrap": "on",
+        "editor.quickSuggestions": {
+            "comments": "off",
+            "strings": "off",
+            "other": "off"
+        },
+        "togglequotes.chars": [
+            "\"",
+            "'",
+            "`"
+        ],
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSaveMode": "file",
+        "editor.formatOnSave": true
+    },
+    "macros.list": {
+        "copyWithoutNewLine": [
+            "cursorHome",
+            "cursorEndSelect",
+            "editor.action.clipboardCopyAction",
+            "cancelSelection",
+            "cursorUndo",
+            "cursorUndo",
+            "cursorUndo"
+        ]
+    },
+    "workbench.colorCustomizations": {
+        "editor.selectionBackground": "#135564",
+        "editor.selectionHighlightBackground": "#22d7ff2c"
+    },
+}
