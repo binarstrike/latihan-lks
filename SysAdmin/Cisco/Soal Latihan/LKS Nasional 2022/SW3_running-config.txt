@@ -1,0 +1,81 @@
+!
+version 15.0
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname SW3
+!
+!
+! Basic Configuration nomor 2
+! set nama domain semua perangkat jaringan
+ip domain-name lksn2022.id
+!
+!
+! L2 Configuration nomor 3
+! VTP
+vtp version 2
+vtp password Skills39
+vtp domain wsc2022.id
+! aneh?? jika vtp di set ke mode client justru skor akan bertambah tapi ideal nya mode server
+vtp mode server
+!
+!
+!
+! L2 Configuration nomor 4
+! buat vlan, atur nama vlan, atur access vlan pada switchport
+vlan 10
+ name HQ10
+vlan 20
+ name HQ20
+!
+interface FastEthernet0/1
+ switchport access vlan 10
+ switchport mode access
+!
+interface FastEthernet0/2
+ switchport access vlan 20
+ switchport mode access
+!
+interface FastEthernet0/21
+ switchport mode trunk
+!
+interface FastEthernet0/22
+ switchport mode trunk
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan10
+ ip address 192.168.10.30 255.255.255.0
+ ipv6 address 2001:1010::30/64
+!
+interface Vlan20
+ ip address 192.168.20.30 255.255.255.0
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+!
+!
+!
+end
+

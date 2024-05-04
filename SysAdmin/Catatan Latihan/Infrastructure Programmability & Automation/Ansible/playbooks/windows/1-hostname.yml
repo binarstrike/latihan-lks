@@ -1,0 +1,16 @@
+- name: Set windows hostname
+  gather_facts: false
+  hosts: WIN
+  tasks:
+    - name: Set hostname
+      win_shell: rename-computer "{{ hostname }}" -Restart
+    
+        
+
+# - name: Set hostname
+#       ansible.windows.win_hostname:
+#         name: "{{ hostname }}"
+#       register: res
+#     - name: Reboot
+#       ansible.windows.win_reboot:
+#       when: res.reboot_required

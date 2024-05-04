@@ -1,0 +1,9 @@
+frontend foo
+  bind *:8080
+  default_backend bar
+
+backend bar
+  balance roundrobin
+{% for ip in ha_server_list %}
+  server node{{ loop.index }} {{ ip }}:80 check
+{% endfor %}

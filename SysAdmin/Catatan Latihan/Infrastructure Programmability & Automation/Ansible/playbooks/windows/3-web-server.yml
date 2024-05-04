@@ -1,0 +1,36 @@
+- name: Setup and configure Web Service IIS
+  gather_facts: false
+  hosts: WIN
+  vars:
+    web_dir: C:\web
+  tasks:
+    - name: Install IIS
+      win_feature:
+        name: Web-Server
+        include_management_tools: true
+    - name: Create web root directory
+      win_file:
+        path: "{{ web_dir }}"
+        state: directory
+    - name: Push web page file
+      win_copy:
+        src: ./templates/index.html
+        dest: "{{ web_dir }}\\index.html"
+    - name: Remove default website
+      community.windows.win_iis_website:
+        name: "Default Web Site"
+        state: absent
+    - name: Configure new website
+      community.windows.win_iis_website:
+        name: "My Website"
+        state: started
+        physical_path: "{{ web_dir }}"
+        hostname: "*"
+        ip: "*"
+        port: 80
+        # hostname: "{{ dns }}"
+
+# - name: Push web page file
+    #   template:
+    #     src: ./templates/web-page.j2
+    #     dest: "{{ web_dir }}\\index.html"

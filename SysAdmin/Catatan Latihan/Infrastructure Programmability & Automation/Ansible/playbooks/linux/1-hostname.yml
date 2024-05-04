@@ -1,0 +1,11 @@
+- name: Set Linux hostname
+  hosts: linux
+  tasks:
+    - name: Set hostname
+      hostname:
+        name: "{{ hostname }}"
+        use: debian
+    - name: Edit host file
+      shell: sed -i "s/TEMPLATE-1/{{ hostname }}/gi" /etc/hosts
+      #  cmd: echo "127.0.1.1 {{ hostname }}" >> /etc/hosts
+

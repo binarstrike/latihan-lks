@@ -1,0 +1,21 @@
+- name: Setup high availability service
+  gather_facts: false
+  hosts: linux_ha_host
+  tasks:
+    - name: Install haproxy package
+      ansible.builtin.apt:
+        name: haproxy
+    - name: Push haproxy configuration file
+      template:
+        src: templates/haproxy-cfg.j2
+        dest: /etc/haproxy/haproxy.cfg
+    - name: Restart haproxy service
+      ansible.builtin.systemd_service:
+        name: haproxy
+        state: restarted
+
+# - name: Install haproxy package
+#   command: apt install haproxy -y
+
+# - name: Restart haproxy service
+#   command: systemctl restart haproxy

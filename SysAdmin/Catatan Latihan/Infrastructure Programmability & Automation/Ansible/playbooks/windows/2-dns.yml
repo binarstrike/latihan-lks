@@ -1,0 +1,21 @@
+- name: Install and configure DNS service
+  gather_facts: false
+  hosts: WIN
+  tasks:
+    - name: Install DNS Feature
+      win_feature:
+        name: DNS
+        include_management_tools: true
+    - name: Registering primary zone
+      community.windows.win_dns_zone:
+        name: "{{ domain_name }}"
+        type: primary
+        state: present
+        # replication: none
+    - name: Create database server record
+      community.windows.win_dns_record:
+        name: "{{ item.hostname }}"
+        type: "A"
+        value: "{{ item.ip }}"
+        zone: "{{ domain_name }}"
+      loop: "{{ dns_server_list }}"

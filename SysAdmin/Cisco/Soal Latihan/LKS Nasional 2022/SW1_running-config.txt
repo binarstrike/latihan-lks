@@ -1,0 +1,79 @@
+!
+version 15.0
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname SW1
+!
+! Basic Configuration nomor 2
+! set nama domain semua perangkat jaringan
+ip domain-name lksn2022.id
+!
+!
+! L2 Configuration nomor 5
+! STP
+spanning-tree vlan 10 root primary
+spanning-tree vlan 20 root secondary
+!
+! VTP
+vtp version 2
+vtp password Skills39
+vtp domain wsc2022.id
+vtp mode client
+!
+!
+interface Port-channel1
+ switchport mode trunk
+!
+!
+interface FastEthernet0/4
+ switchport mode trunk
+!
+!
+! L2 Configuration nomor 1
+! Etherchannel
+interface FastEthernet0/22
+ switchport mode trunk
+ channel-group 1 mode active
+!
+interface FastEthernet0/23
+ switchport mode trunk
+ channel-group 1 mode active
+!
+interface FastEthernet0/24
+ switchport mode trunk
+ channel-group 1 mode active
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan10
+ ip address 192.168.10.10 255.255.255.0
+ ipv6 address 2001:1010::10/64
+!
+interface Vlan20
+ ip address 192.168.20.10 255.255.255.0
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+!
+!
+!
+end
+

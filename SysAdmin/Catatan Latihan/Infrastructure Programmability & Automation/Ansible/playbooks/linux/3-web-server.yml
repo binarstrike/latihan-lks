@@ -1,0 +1,16 @@
+- name: Setup Web service
+  hosts: linux_web_host
+  gather_facts: false
+  tasks:
+    - name: Install nginx package
+      command: apt install nginx -y
+    - name: Push nginx configuration file
+      template:
+        src: templates/nginx-conf.j2
+        dest: /etc/nginx/conf.d/web.conf
+    - name: Push web page files
+      template:
+        src: templates/web-page.j2
+        dest: /var/www/html/index.html
+    - name: Restart nginx service
+      command: systemctl restart nginx
